@@ -12,8 +12,8 @@ import (
 	"net/http"
 	"regexp"
 
-	"layeh.com/radius/dictionary"
-	"layeh.com/radius/dictionarygen"
+	"github.com/jdziuk/radius/dictionary"
+	"github.com/jdziuk/radius/dictionarygen"
 )
 
 type ParseResponse struct {
