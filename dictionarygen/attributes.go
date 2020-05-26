@@ -35,6 +35,7 @@ func (g *Generator) genAttributeStringOctets(w io.Writer, attr *dictionary.Attri
 		p(w, `	_, err = rand.Read(salt[:])`)
 		p(w, `	if err != nil {`)
 		p(w, `		return`)
+		p(w, `	salt[0] |= (1 << 7) // https://tools.ietf.org/html/rfc2868 set the MSB in the first byte of salt`)
 		p(w, `	}`)
 		p(w, `	a, err = radius.NewTunnelPassword(value, salt[:], p.Secret, p.Authenticator[:])`)
 	} else {
@@ -1040,7 +1041,6 @@ func (g *Generator) genAttributeInteger(w io.Writer, attr *dictionary.Attribute,
 	}
 	p(w, `}`)
 }
-
 
 func (g *Generator) genAttributeByte(w io.Writer, attr *dictionary.Attribute, vendor *dictionary.Vendor) {
 	ident := identifier(attr.Name)
